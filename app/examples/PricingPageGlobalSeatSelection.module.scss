@@ -1,0 +1,136 @@
+.controlsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: fit-content;
+  margin: 40px auto 0;
+}
+
+.toggleGroup {
+  margin: 0;
+}
+
+.seatStepper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 64px;
+  padding: 8px;
+  border: 1px solid #666;
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(5px);
+}
+
+.seatAdjustButton {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: #d9d9d9;
+  color: #666;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+.seatAdjustButton:hover:not(:disabled),
+.seatAdjustButton:focus-visible {
+  background: #bfbfbf;
+  outline: none;
+}
+
+.seatAdjustButton:disabled {
+  background: #d9d9d9;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.seatAdjustButtonActive {
+  background: #191919;
+  color: white;
+}
+
+.seatAdjustButtonActive:hover,
+.seatAdjustButtonActive:focus-visible {
+  background: #303030;
+}
+
+.seatAdjustIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.seatCount {
+  display: flex;
+  min-width: 40px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  color: #666;
+}
+
+.seatCountValue {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.seatCountLabel {
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.24px;
+}
+
+.planCard {
+  background: white;
+}
+
+.teamPlanHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.seatSummary {
+  flex-shrink: 0;
+  padding-top: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+}
+
+@media (max-width: 720px) {
+  .controlsRow {
+    width: 100%;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .toggleGroup {
+    width: 100%;
+  }
+
+  .seatStepper {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .teamPlanHeader {
+    flex-direction: column;
+  }
+
+  .seatSummary {
+    padding-top: 0;
+  }
+}
