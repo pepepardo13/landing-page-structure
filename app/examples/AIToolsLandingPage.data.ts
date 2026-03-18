@@ -91,6 +91,7 @@ export type HeroInteractiveCard = {
   parallaxY: number;
   ctaLabel?: string;
   mediaSrc?: string;
+  promptText?: string;
 };
 
 export const HEADER_LOGO = {
@@ -215,6 +216,8 @@ export const HERO_INTERACTIVE_CARDS: HeroInteractiveCard[] = [
     parallaxX: -172,
     parallaxY: -84,
     mediaSrc: new URL("./assets/ai-tools-landing/hero-top-right-media.gif", import.meta.url).href,
+    promptText:
+      "A photorealistic silver alien sitting on an orange subway seat, reading a newspaper, cinematic lighting, shallow depth of field.",
   },
   {
     id: "wide-left",

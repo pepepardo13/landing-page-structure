@@ -169,14 +169,27 @@ function CategoryCard({
 function HeroInteractiveCard({
   card,
   progress,
+  onSelectPrompt,
 }: {
   card: (typeof HERO_INTERACTIVE_CARDS)[number];
   progress: number;
+  onSelectPrompt: (prompt: string) => void;
 }) {
+  const isActionable = Boolean(card.promptText);
+  const CardTag = isActionable ? "button" : "div";
+
   return (
-    <div
+    <CardTag
+      {...(isActionable
+        ? {
+            type: "button" as const,
+            onClick: () => onSelectPrompt(card.promptText!),
+            "aria-label": `Use prompt from ${card.id.replaceAll("-", " ")}`,
+          }
+        : {})}
       className={clsx(
         styles.heroInteractiveCard,
+        isActionable && styles.heroInteractiveCardActionable,
         card.ctaLabel && styles.heroInteractiveCardLarge,
       )}
       style={{
@@ -199,11 +212,11 @@ function HeroInteractiveCard({
           />
         ) : null}
       </div>
-      <a className={styles.heroInteractiveCardCta} href="#">
+      <span className={styles.heroInteractiveCardCta}>
         <img alt="" aria-hidden="true" src={HERO_SCENE_ASSETS.promptSpark} />
         <span>{card.ctaLabel ?? "Get prompt"}</span>
-      </a>
-    </div>
+      </span>
+    </CardTag>
   );
 }
 
@@ -428,6 +441,21 @@ export function AIToolsLandingPage() {
     setPromptInputValue("");
   };
 
+  const handleHeroCardPromptSelect = (prompt: string) => {
+    setHasPromptOverride(true);
+    setPromptInputValue(prompt);
+    setIsPromptFocused(true);
+
+    if (navigator.clipboard?.writeText) {
+      void navigator.clipboard.writeText(prompt).catch(() => {});
+    }
+
+    requestAnimationFrame(() => {
+      promptInputRef.current?.focus();
+      promptInputRef.current?.setSelectionRange(prompt.length, prompt.length);
+    });
+  };
+
   return (
     <div className={styles.page}>
       <div className={styles.shell}>
@@ -471,20 +499,22 @@ export function AIToolsLandingPage() {
 
         <main className={styles.main}>
           <section className={styles.heroSection} data-node-id="52:6225" ref={heroSectionRef}>
-            <div
-              className={styles.heroScene}
-              aria-hidden="true"
-              style={{ opacity: 1 - heroTransitionProgress * 0.08 }}
-            >
+            <div className={styles.heroScene} style={{ opacity: 1 - heroTransitionProgress * 0.08 }}>
               <div
                 className={styles.heroSceneGlow}
+                aria-hidden="true"
                 style={{
                   opacity: 1 - heroTransitionProgress * 0.22,
                   transform: `translate3d(${heroTransitionProgress * 54}px, ${heroTransitionProgress * 18}px, 0) scale(${1 + heroTransitionProgress * 0.06})`,
                 }}
               />
               {HERO_INTERACTIVE_CARDS.map((card) => (
-                <HeroInteractiveCard key={card.id} card={card} progress={heroTransitionProgress} />
+                <HeroInteractiveCard
+                  key={card.id}
+                  card={card}
+                  onSelectPrompt={handleHeroCardPromptSelect}
+                  progress={heroTransitionProgress}
+                />
               ))}
             </div>
 

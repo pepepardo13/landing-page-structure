@@ -277,10 +277,19 @@
 }
 
 .heroInteractiveCard {
+  appearance: none;
   border-radius: 16.14px;
+  border: 0;
   overflow: hidden;
   pointer-events: auto;
   position: absolute;
+  text-align: left;
+}
+
+.heroInteractiveCardActionable {
+  background: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .heroInteractiveCardSurface {
@@ -311,6 +320,16 @@
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
   filter: brightness(1.02);
   transform: translateY(-4px);
+}
+
+.heroInteractiveCardActionable:focus-visible {
+  outline: none;
+}
+
+.heroInteractiveCardActionable:focus-visible .heroInteractiveCardSurface {
+  box-shadow:
+    0 0 0 2px rgba(135, 230, 75, 0.9),
+    0 10px 28px rgba(0, 0, 0, 0.18);
 }
 
 .heroInteractiveCardLarge .heroInteractiveCardSurface {
