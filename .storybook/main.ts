@@ -7,6 +7,7 @@ const require = createRequire(import.meta.url);
 
 const config: StorybookConfig = {
   stories: ["../app/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  staticDirs: ["../public"],
   addons: [
     getAbsolutePath("@storybook/addon-docs"),
     getAbsolutePath("@storybook/addon-onboarding"),
