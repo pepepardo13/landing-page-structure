@@ -37,6 +37,8 @@ function altHeroAsset(name: string) {
   return altAssetUrls[`./assets/landing-page-structure-v2/${name}`];
 }
 
+const loopingUnicornGif = new URL("./assets/ai-tools-landing/hero-top-right-media.gif", import.meta.url).href;
+
 const ALT_PAGE_COPY = {
   heroTitle: "VideoGen",
   heroSubtitle: "From idea to video in seconds. Write a prompt, upload an image from your gallery or create.",
@@ -155,7 +157,7 @@ const ALT_HERO_PREVIEW_CARDS = [
   },
   {
     id: "center",
-    src: altHeroAsset("img06HeSlowlyLooksUpAndDownSubtleMove1.jpg"),
+    src: loopingUnicornGif,
     left: 634,
     top: 39.44,
     width: 243.288,
