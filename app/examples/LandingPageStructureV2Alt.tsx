@@ -26,8 +26,13 @@ import {
   FAQ_ITEMS,
 } from "./LandingPageStructureV2.data";
 
+const altAssetUrls = import.meta.glob("./assets/landing-page-structure-v2/*", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
+
 function altHeroAsset(name: string) {
-  return new URL(`./assets/landing-page-structure-v2/${name}`, import.meta.url).href;
+  return altAssetUrls[`./assets/landing-page-structure-v2/${name}`];
 }
 
 const ALT_PAGE_COPY = {
