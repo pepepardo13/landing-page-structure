@@ -1,8 +1,9 @@
-import type { CSSProperties } from "react";
+import { type CSSProperties, useRef } from "react";
 
 import clsx from "clsx";
 
 import styles from "./LandingPageStructureV2.module.scss";
+import { useSectionScrollProgress } from "./useSectionScrollProgress";
 import {
   ASSET_CATEGORIES,
   CTA_URL,
@@ -136,7 +137,13 @@ function ModelLogo({ item }: { item: (typeof MODEL_LOGOS_TIER_ONE)[number] | (ty
   return <span className={styles.modelLogoText}>{item.label}</span>;
 }
 
-function HeroPreviewCard({ card }: { card: (typeof HERO_PREVIEW_CARDS)[number] }) {
+function HeroPreviewCard({
+  card,
+  progress,
+}: {
+  card: (typeof HERO_PREVIEW_CARDS)[number];
+  progress: number;
+}) {
   const motionByCardId: Record<
     (typeof HERO_PREVIEW_CARDS)[number]["id"],
     {
@@ -145,20 +152,28 @@ function HeroPreviewCard({ card }: { card: (typeof HERO_PREVIEW_CARDS)[number] }
       rotate: number;
       duration: number;
       delay: number;
+      scrollX: number;
+      scrollY: number;
+      fade: number;
     }
   > = {
-    "left-wide": { x: -2, y: 10, rotate: -0.7, duration: 6.3, delay: -1.2 },
-    "left-portrait": { x: -1, y: -14, rotate: -0.5, duration: 5.4, delay: -3.1 },
-    center: { x: 1, y: -8, rotate: 0.35, duration: 4.8, delay: -0.9 },
-    "center-right": { x: 2, y: -12, rotate: 0.6, duration: 5.9, delay: -2.4 },
-    "right-portrait": { x: 3, y: 11, rotate: 0.8, duration: 6.8, delay: -4.2 },
+    "left-wide": { x: -2, y: 10, rotate: -0.7, duration: 6.3, delay: -1.2, scrollX: -52, scrollY: 54, fade: 0.9 },
+    "left-portrait": { x: -1, y: -14, rotate: -0.5, duration: 5.4, delay: -3.1, scrollX: -30, scrollY: 42, fade: 0.94 },
+    center: { x: 1, y: -8, rotate: 0.35, duration: 4.8, delay: -0.9, scrollX: 0, scrollY: 78, fade: 1.08 },
+    "center-right": { x: 2, y: -12, rotate: 0.6, duration: 5.9, delay: -2.4, scrollX: 34, scrollY: 38, fade: 0.94 },
+    "right-portrait": { x: 3, y: 11, rotate: 0.8, duration: 6.8, delay: -4.2, scrollX: 58, scrollY: 52, fade: 0.9 },
   };
   const motion = motionByCardId[card.id];
-  const cardStyle = {
+  const easedProgress = progress * progress * (3 - 2 * progress);
+  const frameStyle = {
     left: `${card.left}px`,
     top: `${card.top}px`,
     width: `${card.width}px`,
     height: `${card.height}px`,
+    opacity: Math.max(0, 1 - easedProgress * motion.fade),
+    transform: `translate3d(${motion.scrollX * easedProgress}px, ${motion.scrollY * easedProgress}px, 0) scale(${1 - easedProgress * 0.08})`,
+  } as CSSProperties;
+  const cardStyle = {
     "--hero-card-base-rotate": `${card.rotate}deg`,
     "--hero-card-float-x": `${motion.x}px`,
     "--hero-card-float-y": `${motion.y}px`,
@@ -168,15 +183,17 @@ function HeroPreviewCard({ card }: { card: (typeof HERO_PREVIEW_CARDS)[number] }
   } as CSSProperties;
 
   return (
-    <div
-      className={clsx(
-        styles.heroPreviewCard,
-        card.muted && styles.heroPreviewCardMuted,
-        card.highlighted && styles.heroPreviewCardHighlighted,
-      )}
-      style={cardStyle}
-    >
-      <img alt="" aria-hidden="true" className={styles.heroPreviewCardImage} src={card.src} />
+    <div className={styles.heroPreviewCardFrame} style={frameStyle}>
+      <div
+        className={clsx(
+          styles.heroPreviewCard,
+          card.muted && styles.heroPreviewCardMuted,
+          card.highlighted && styles.heroPreviewCardHighlighted,
+        )}
+        style={cardStyle}
+      >
+        <img alt="" aria-hidden="true" className={styles.heroPreviewCardImage} src={card.src} />
+      </div>
     </div>
   );
 }
@@ -301,6 +318,14 @@ function AssetCard({ item }: { item: (typeof ASSET_CATEGORIES)[number] }) {
 }
 
 export function LandingPageStructureV2() {
+  const showcaseSectionRef = useRef<HTMLElement>(null);
+  const heroTransitionProgress = useSectionScrollProgress(showcaseSectionRef, {
+    startViewportRatio: 1.02,
+    endViewportRatio: 0.34,
+  });
+  const heroTransitionEase =
+    heroTransitionProgress * heroTransitionProgress * (3 - 2 * heroTransitionProgress);
+
   return (
     <div className={styles.page}>
       <div className={styles.shell}>
@@ -360,13 +385,26 @@ export function LandingPageStructureV2() {
               <p>{PAGE_COPY.heroSubtitle}</p>
             </div>
 
-            <div className={styles.heroPreviewScene} aria-hidden="true">
+            <div
+              className={styles.heroPreviewScene}
+              aria-hidden="true"
+              style={{
+                opacity: 1 - heroTransitionEase * 0.12,
+                transform: `translateX(-50%) translate3d(0, ${heroTransitionEase * 22}px, 0)`,
+              }}
+            >
               {HERO_PREVIEW_CARDS.map((card) => (
-                <HeroPreviewCard key={card.id} card={card} />
+                <HeroPreviewCard key={card.id} card={card} progress={heroTransitionEase} />
               ))}
             </div>
 
-            <div className={styles.heroModels}>
+            <div
+              className={styles.heroModels}
+              style={{
+                opacity: 1 - heroTransitionEase * 0.78,
+                transform: `translate3d(0, ${heroTransitionEase * -26}px, 0)`,
+              }}
+            >
               <p>{PAGE_COPY.modelsLabel}</p>
               <div className={styles.modelLogoRow}>
                 {MODEL_LOGOS_TIER_ONE.map((item) => (
@@ -381,8 +419,14 @@ export function LandingPageStructureV2() {
             </div>
           </section>
 
-          <section className={styles.showcaseSection}>
-            <div className={styles.sectionHeading}>
+          <section className={styles.showcaseSection} ref={showcaseSectionRef}>
+            <div
+              className={clsx(styles.sectionHeading, styles.showcaseSectionLead)}
+              style={{
+                opacity: 0.38 + heroTransitionEase * 0.62,
+                transform: `translate3d(0, ${(1 - heroTransitionEase) * 44}px, 0)`,
+              }}
+            >
               <h2>{PAGE_COPY.madeWithTitle}</h2>
               <p>{PAGE_COPY.madeWithSubtitle}</p>
             </div>

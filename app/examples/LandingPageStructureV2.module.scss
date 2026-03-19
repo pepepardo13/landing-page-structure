@@ -635,6 +635,10 @@
   display: flex;
   flex-direction: column;
   margin-top: 18px;
+  transition:
+    opacity 120ms linear,
+    transform 120ms linear;
+  will-change: opacity, transform;
   width: 100%;
 }
 
@@ -785,6 +789,10 @@
   margin: 82px auto 0;
   overflow: visible;
   position: relative;
+  transition:
+    opacity 120ms linear,
+    transform 120ms linear;
+  will-change: opacity, transform;
   width: 1498.112px;
 }
 
@@ -795,16 +803,32 @@
   right: auto;
   top: 226px;
   transform: translateX(-50%);
+  transition:
+    opacity 120ms linear,
+    transform 120ms linear;
+  will-change: opacity, transform;
   width: 1440px;
+}
+
+.heroPreviewCardFrame {
+  position: absolute;
+  transform-origin: center;
+  transition:
+    opacity 120ms linear,
+    transform 120ms linear;
+  will-change: opacity, transform;
 }
 
 .heroPreviewCard {
   animation: heroPreviewCardOrbit var(--hero-card-duration, 5.8s) ease-in-out var(--hero-card-delay, 0s) infinite;
   border-radius: 12px;
+  height: 100%;
+  inset: 0;
   overflow: hidden;
   position: absolute;
   transform-origin: center;
   will-change: transform;
+  width: 100%;
 }
 
 .heroPreviewCardImage {
@@ -860,6 +884,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .heroPreviewCardFrame,
+  .heroPreviewScene,
+  .altHeroPreviewScene,
+  .heroModels,
+  .altHeroModels,
+  .showcaseSectionLead {
+    transition: none;
+  }
+
   .heroPreviewCard {
     animation: none;
     transform: rotate(var(--hero-card-base-rotate, 0deg));
@@ -868,6 +901,10 @@
 
 .heroModels {
   margin-top: 284px;
+  transition:
+    opacity 120ms linear,
+    transform 120ms linear;
+  will-change: opacity, transform;
 }
 
 .heroModels p {
@@ -922,6 +959,13 @@
 
 .sectionHeading {
   text-align: center;
+}
+
+.showcaseSectionLead {
+  transition:
+    opacity 120ms linear,
+    transform 120ms linear;
+  will-change: opacity, transform;
 }
 
 .sectionHeading h2 {
