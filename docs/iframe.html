@@ -546,6 +546,48 @@
     console.warn('unable to connect to top frame for connecting dev tools');
   }
 </script>
+<script>
+  (() => {
+    const params = new URLSearchParams(window.location.search);
+    const cacheBust = params.get("cacheBust");
+
+    if (!cacheBust) {
+      return;
+    }
+
+    const rewriteUrl = (value) => {
+      const url = new URL(value, window.location.href);
+
+      if (!url.pathname.endsWith("/index.json") && !url.pathname.endsWith("index.json")) {
+        return value;
+      }
+
+      url.searchParams.set("cacheBust", cacheBust);
+      return url.toString();
+    };
+
+    const originalFetch = window.fetch.bind(window);
+    window.fetch = (input, init) => {
+      if (typeof input === "string" || input instanceof URL) {
+        return originalFetch(rewriteUrl(input), init);
+      }
+
+      if (input instanceof Request) {
+        const rewrittenUrl = rewriteUrl(input.url);
+        if (rewrittenUrl !== input.url) {
+          return originalFetch(new Request(rewrittenUrl, input), init);
+        }
+      }
+
+      return originalFetch(input, init);
+    };
+
+    const originalOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function patchedOpen(method, url, ...rest) {
+      return originalOpen.call(this, method, rewriteUrl(url), ...rest);
+    };
+  })();
+</script>
 
     <script type="module" crossorigin src="/landing-page-structure/assets/iframe-uRp6huAW.js"></script>
     <link rel="modulepreload" crossorigin href="/landing-page-structure/assets/preload-helper-BM5yk42b.js">
