@@ -151,7 +151,7 @@
 
 .altHeroSection {
   overflow: hidden;
-  padding: 24px 0 96px;
+  padding: 24px 0 0;
   position: relative;
   text-align: center;
 }
@@ -781,7 +781,7 @@
 }
 
 .altHeroPreviewScene {
-  height: 538px;
+  height: 352px;
   margin: 82px auto 0;
   overflow: visible;
   position: relative;
@@ -930,6 +930,10 @@
 
 .showcaseSection {
   padding-top: 76px;
+}
+
+.altShowcaseSection {
+  padding-top: 64px;
 }
 
 .showcaseSection .sectionHeading p {

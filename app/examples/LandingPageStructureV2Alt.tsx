@@ -817,7 +817,7 @@ export function LandingPageStructureV2Alt() {
             </div>
           </section>
 
-          <section className={styles.showcaseSection}>
+          <section className={clsx(styles.showcaseSection, styles.altShowcaseSection)}>
             <div className={styles.sectionHeading}>
               <h2>{PAGE_COPY.madeWithTitle}</h2>
               <p>{PAGE_COPY.madeWithSubtitle}</p>

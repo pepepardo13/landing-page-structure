@@ -7,7 +7,7 @@ function asset(name: string) {
   return assetUrls[`./assets/landing-page-structure-v2/${name}`];
 }
 
-const loopingUnicornGif = new URL("./assets/ai-tools-landing/hero-top-right-media.gif", import.meta.url).href;
+const centerHeroCardImage = asset("imgRectangle10927.jpg");
 
 export type HeaderLink = {
   label: string;
@@ -203,7 +203,7 @@ export const HERO_PREVIEW_CARDS: HeroPreviewCard[] = [
   },
   {
     id: "center",
-    src: loopingUnicornGif,
+    src: centerHeroCardImage,
     left: 594,
     top: 228,
     width: 243.288,
