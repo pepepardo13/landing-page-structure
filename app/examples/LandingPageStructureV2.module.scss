@@ -548,7 +548,7 @@
   display: inline-flex;
   gap: 4px;
   height: 40px;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 40px;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
@@ -556,7 +556,9 @@
 }
 
 .altHeroPromptChip span {
+  color: #ffffff;
   font-weight: 400;
+  opacity: 1;
 }
 
 .altHeroPromptChipIcon,
@@ -570,22 +572,24 @@
 }
 
 .altHeroPromptChipAspect {
-  width: 78px;
+  min-width: 86px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .altHeroPromptChipVariations {
-  width: 139px;
+  min-width: 143px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .altHeroPromptChipIconAspect {
   height: 14px;
-  margin-left: -1px;
   width: 14px;
 }
 
 .altHeroPromptChipIconVariations {
   height: 13.333px;
-  margin-left: -1px;
   width: 13.333px;
 }
 
