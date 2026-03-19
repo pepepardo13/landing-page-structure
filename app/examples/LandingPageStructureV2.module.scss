@@ -548,6 +548,7 @@
   display: inline-flex;
   gap: 4px;
   height: 40px;
+  justify-content: center;
   min-height: 40px;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
@@ -563,8 +564,29 @@
 .altHeroMagicIcon,
 .altHeroGenerateIcon {
   display: block;
+  flex: 0 0 auto;
   height: 16px;
   width: 16px;
+}
+
+.altHeroPromptChipAspect {
+  width: 78px;
+}
+
+.altHeroPromptChipVariations {
+  width: 139px;
+}
+
+.altHeroPromptChipIconAspect {
+  height: 14px;
+  margin-left: -1px;
+  width: 14px;
+}
+
+.altHeroPromptChipIconVariations {
+  height: 13.333px;
+  margin-left: -1px;
+  width: 13.333px;
 }
 
 .altHeroMagicButton {

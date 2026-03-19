@@ -354,11 +354,11 @@ function AltPromptComposer() {
                     />
           </button>
 
-          <button className={styles.altHeroPromptChip} type="button">
+          <button className={clsx(styles.altHeroPromptChip, styles.altHeroPromptChipAspect)} type="button">
                     <img
                       alt=""
                       aria-hidden="true"
-                      className={styles.altHeroPromptChipIcon}
+              className={clsx(styles.altHeroPromptChipIcon, styles.altHeroPromptChipIconAspect)}
                       src={ALT_PROMPT_PUBLIC_ASSETS.aspectIcon}
                     />
             <span>1:1</span>
@@ -370,11 +370,11 @@ function AltPromptComposer() {
                     />
           </button>
 
-          <button className={styles.altHeroPromptChip} type="button">
+          <button className={clsx(styles.altHeroPromptChip, styles.altHeroPromptChipVariations)} type="button">
             <img
               alt=""
               aria-hidden="true"
-              className={styles.altHeroPromptChipIcon}
+              className={clsx(styles.altHeroPromptChipIcon, styles.altHeroPromptChipIconVariations)}
                       src={ALT_PROMPT_PUBLIC_ASSETS.variationsIcon}
             />
             <span>6 variations</span>
