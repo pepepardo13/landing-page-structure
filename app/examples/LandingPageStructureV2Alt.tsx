@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 
 import clsx from "clsx";
 
+import { MODEL_LOGOS } from "./AIToolsLandingPage.data";
 import styles from "./LandingPageStructureV2.module.scss";
 import {
   ASSET_CATEGORIES,
@@ -57,25 +58,6 @@ const ALT_PROMPT_PUBLIC_ASSETS = {
   wandIcon: publicAsset("wand-icon.svg"),
   generateArrow: publicAsset("generate-arrow.svg"),
 };
-
-const ALT_MODEL_LOGOS = [
-  { kind: "image" as const, label: "OpenAI", src: altHeroAsset("imgOpenAiLogo1.svg"), width: 88.5, height: 24 },
-  { kind: "image" as const, label: "Luma AI", src: altHeroAsset("imgGroup27392.svg"), width: 96.527, height: 18 },
-  { kind: "text" as const, label: "Veo" },
-  { kind: "text" as const, label: "Nano Banana" },
-  { kind: "image" as const, label: "Seedream", src: altHeroAsset("imgGroup27390.svg"), width: 93.375, height: 18 },
-  { kind: "divider" as const, src: altHeroAsset("imgVector.svg") },
-  { kind: "image" as const, label: "Kling AI", src: altHeroAsset("imgKling.svg"), width: 95.25, height: 24.002 },
-  {
-    kind: "image" as const,
-    label: "ElevenLabs",
-    src: altHeroAsset("imgElevenlabsLogoBlack1.svg"),
-    width: 115.5,
-    height: 15,
-  },
-  { kind: "text-with-icon" as const, label: "Flux", src: altHeroAsset("imgFlux1.svg"), width: 24, height: 24 },
-  { kind: "text-with-icon" as const, label: "Minimax", src: altHeroAsset("imgMinimax1.svg"), width: 24, height: 24 },
-];
 
 const ALT_MODE_TOGGLE_ITEMS = [
   { id: "imagegen", label: "ImageGen", icon: "image" as const },
@@ -223,17 +205,13 @@ function BrandGlyph() {
 function AltModelLogo({
   item,
 }: {
-  item: (typeof ALT_MODEL_LOGOS)[number];
+  item: (typeof MODEL_LOGOS)[number];
 }) {
-  if (item.kind === "divider") {
-    return <img alt="" aria-hidden="true" className={styles.altHeroModelDivider} src={item.src} />;
-  }
-
   if (item.kind === "image") {
     return (
       <img
         alt={item.label}
-        className={styles.altHeroModelImage}
+        className={styles.modelLogoImage}
         height={item.height}
         src={item.src}
         style={{ width: `${item.width}px`, height: `${item.height}px` }}
@@ -244,14 +222,14 @@ function AltModelLogo({
 
   if (item.kind === "text-with-icon") {
     return (
-      <span className={styles.altHeroModelWithIcon}>
-        <img alt="" aria-hidden="true" className={styles.altHeroModelInlineIcon} src={item.src} />
+      <span className={styles.modelLogoWithIcon}>
+        <img alt="" aria-hidden="true" className={styles.modelLogoInlineIcon} src={item.src} />
         <span>{item.label}</span>
       </span>
     );
   }
 
-  return <span className={styles.altHeroModelText}>{item.label}</span>;
+  return <span className={styles.modelLogoText}>{item.label}</span>;
 }
 
 function AltHeroPreviewCard({ card }: { card: (typeof ALT_HERO_PREVIEW_CARDS)[number] }) {
@@ -595,8 +573,8 @@ export function LandingPageStructureV2Alt() {
             <div className={styles.altHeroModels}>
               <p>{ALT_PAGE_COPY.modelsLabel}</p>
               <div className={styles.altHeroModelRow}>
-                {ALT_MODEL_LOGOS.map((item) => (
-                  <AltModelLogo key={`${item.kind}-${"label" in item ? item.label : item.src}`} item={item} />
+                {MODEL_LOGOS.map((item) => (
+                  <AltModelLogo key={`${item.kind}-${item.label}`} item={item} />
                 ))}
               </div>
             </div>
