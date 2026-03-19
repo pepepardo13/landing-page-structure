@@ -418,8 +418,16 @@
 
 .altHeroUploadButton {
   align-items: center;
-  background: transparent;
-  border-radius: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04)),
+    rgba(56, 56, 56, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 8px 20px rgba(0, 0, 0, 0.18);
   cursor: pointer;
   display: inline-flex;
   height: 40px;
@@ -463,14 +471,22 @@
 
 .altHeroStyleChip {
   align-items: center;
-  background: transparent;
-  border-radius: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
+    rgba(56, 56, 56, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 8px 20px rgba(0, 0, 0, 0.18);
   color: #ffffff;
   cursor: pointer;
   display: inline-flex;
-  gap: 8px;
+  gap: 10px;
   height: 40px;
-  padding: 0;
+  padding: 4px 8px 4px 4px;
   width: auto;
 }
 
@@ -517,15 +533,23 @@
 
 .altHeroPromptChip {
   align-items: center;
-  background: transparent;
-  border-radius: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04)),
+    rgba(56, 56, 56, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 48px;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 8px 20px rgba(0, 0, 0, 0.18);
   cursor: pointer;
   display: inline-flex;
   gap: 4px;
   height: 40px;
   justify-content: center;
   min-height: 40px;
-  padding: 0 4px;
+  padding: 0 12px;
 }
 
 .altHeroPromptChipLabel {
@@ -553,8 +577,16 @@
 
 .altHeroMagicButton {
   align-items: center;
-  background: transparent;
-  border-radius: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04)),
+    rgba(56, 56, 56, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 8px 20px rgba(0, 0, 0, 0.18);
   cursor: pointer;
   display: inline-flex;
   height: 40px;
