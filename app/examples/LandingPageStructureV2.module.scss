@@ -446,11 +446,12 @@
   width: 18px;
 }
 
-.altHeroAddImageIcon img {
+.altHeroAddImagePrimary,
+.altHeroAddImageSecondary {
   display: block;
 }
 
-.altHeroAddImageIcon .mediaFill {
+.altHeroAddImagePrimary {
   height: 13.5px;
   left: 2.25px;
   position: absolute;
@@ -460,12 +461,12 @@
   width: 13.5px;
 }
 
-.altHeroAddImagePlus {
+.altHeroAddImageSecondary {
   display: block;
   height: 6px;
-  left: 11px;
+  left: 2px;
   position: absolute;
-  top: 10px;
+  top: 0.35px;
   transform: scaleY(-1) rotate(180deg);
   transform-origin: center;
   width: 6px;
