@@ -1,8 +1,9 @@
-import type { CSSProperties } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 
 import clsx from "clsx";
 
-import { HERO_ASSETS, MODEL_LOGOS } from "./AIToolsLandingPage.data";
+import aiToolsStyles from "./AIToolsLandingPage.module.scss";
+import { HERO_ASSETS, HERO_ROTATING_PROMPTS, MODEL_LOGOS } from "./AIToolsLandingPage.data";
 import styles from "./LandingPageStructureV2.module.scss";
 import {
   ASSET_CATEGORIES,
@@ -413,51 +414,122 @@ function AltHeroPreviewCard({ card }: { card: (typeof ALT_HERO_PREVIEW_CARDS)[nu
   );
 }
 
-function AltPromptComposer() {
+function AltPromptComposer({
+  autoPromptValue,
+  hasPromptOverride,
+  isPromptFocused,
+  onPromptBlur,
+  onPromptChange,
+  onPromptFocus,
+  promptInputRef,
+  promptInputValue,
+}: {
+  autoPromptValue: string;
+  hasPromptOverride: boolean;
+  isPromptFocused: boolean;
+  onPromptBlur: () => void;
+  onPromptChange: (value: string) => void;
+  onPromptFocus: () => void;
+  promptInputRef: React.RefObject<HTMLInputElement | null>;
+  promptInputValue: string;
+}) {
   return (
-    <div className={styles.altHeroComposer}>
-      <div className={styles.altHeroComposerInput}>
-        <span aria-hidden="true" className={styles.altHeroComposerCaret} />
-      </div>
-      <div className={styles.altHeroComposerControls}>
-        <div className={styles.altHeroComposerLeft}>
-          <button aria-label="Upload an image" className={styles.altHeroUploadButton} type="button">
-            <span className={styles.altHeroAddImageIcon}>
-              <img alt="" aria-hidden="true" className={styles.altHeroAddImagePrimary} src={HERO_ASSETS.addImagePrimary} />
-              <img alt="" aria-hidden="true" className={styles.altHeroAddImageSecondary} src={HERO_ASSETS.addImageSecondary} />
+    <div className={styles.altHeroPromptMount}>
+      <div className={aiToolsStyles.promptShell} style={{ marginTop: 0 }}>
+        <div className={aiToolsStyles.promptInputRow} onClick={onPromptFocus} role="presentation">
+          {!hasPromptOverride ? (
+            <span className={aiToolsStyles.promptInputOverlay} aria-hidden="true">
+              {autoPromptValue}
             </span>
-          </button>
-
-          <button className={styles.altHeroStyleChip} type="button">
-            <span className={styles.altHeroStyleThumb}>
-              <img alt="" aria-hidden="true" className={styles.altHeroStyleThumbLayer} src={HERO_ASSETS.styleThumbnail} />
-              <img alt="" aria-hidden="true" className={styles.altHeroStyleThumbIcon} src={HERO_ASSETS.styleIcon} />
-            </span>
-            <span className={styles.altHeroStyleChipLabel}>Auto style</span>
-            <img alt="" aria-hidden="true" className={styles.altHeroPromptChevron} src={HERO_ASSETS.styleChevron} />
-          </button>
-
-          <button className={clsx(styles.altHeroPromptChip, styles.altHeroPromptChipAspect)} type="button">
-            <img alt="" aria-hidden="true" className={styles.altHeroPromptChipIcon} src={HERO_ASSETS.aspectIcon} />
-            <span className={styles.altHeroPromptChipLabel}>1:1</span>
-            <img alt="" aria-hidden="true" className={styles.altHeroPromptChevron} src={HERO_ASSETS.chipChevron} />
-          </button>
-
-          <button className={clsx(styles.altHeroPromptChip, styles.altHeroPromptChipVariations)} type="button">
-            <img alt="" aria-hidden="true" className={styles.altHeroPromptChipIcon} src={HERO_ASSETS.variationsIcon} />
-            <span className={styles.altHeroPromptChipLabel}>6 variations</span>
-            <img alt="" aria-hidden="true" className={styles.altHeroPromptChevron} src={HERO_ASSETS.chipChevron} />
-          </button>
+          ) : null}
+          <input
+            ref={promptInputRef}
+            aria-label="Prompt"
+            className={clsx(aiToolsStyles.promptInput, !hasPromptOverride && aiToolsStyles.promptInputPreview)}
+            onBlur={onPromptBlur}
+            onChange={(event) => onPromptChange(event.target.value)}
+            onFocus={onPromptFocus}
+            type="text"
+            value={hasPromptOverride ? promptInputValue : ""}
+          />
+          {isPromptFocused && !hasPromptOverride ? (
+            <span className={aiToolsStyles.promptCursor} aria-hidden="true" />
+          ) : null}
         </div>
 
-        <div className={styles.altHeroComposerRight}>
-          <button aria-label="Enhance prompt" className={styles.altHeroMagicButton} type="button">
-            <img alt="" aria-hidden="true" className={styles.altHeroMagicIcon} height={16} src={HERO_ASSETS.wandIcon} width={16} />
-          </button>
-          <a className={styles.altHeroGenerateButton} href={CTA_URL}>
-            <span>Generate</span>
-            <img alt="" aria-hidden="true" className={styles.altHeroGenerateIcon} src={HERO_ASSETS.generateArrow} />
-          </a>
+        <div className={aiToolsStyles.promptActionRow}>
+          <div className={aiToolsStyles.promptLeft}>
+            <button aria-label="Upload reference image" className={aiToolsStyles.iconChip} type="button">
+              <span className={aiToolsStyles.addImageIcon}>
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className={aiToolsStyles.addImageIconPrimary}
+                  src={HERO_ASSETS.addImagePrimary}
+                />
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className={aiToolsStyles.addImageIconSecondary}
+                  src={HERO_ASSETS.addImageSecondary}
+                />
+              </span>
+            </button>
+
+            <button className={aiToolsStyles.styleChip} type="button">
+              <span className={aiToolsStyles.styleChipThumb}>
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className={aiToolsStyles.styleChipThumbImage}
+                  src={HERO_ASSETS.styleThumbnail}
+                />
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className={aiToolsStyles.styleChipThumbIcon}
+                  src={HERO_ASSETS.styleIcon}
+                />
+              </span>
+              <span className={aiToolsStyles.styleChipLabel}>Auto style</span>
+              <img alt="" aria-hidden="true" className={aiToolsStyles.chipCaret} src={HERO_ASSETS.styleChevron} />
+            </button>
+
+            <button className={aiToolsStyles.promptChip} type="button">
+              <img alt="" aria-hidden="true" className={aiToolsStyles.promptChipIcon} src={HERO_ASSETS.aspectIcon} />
+              <span>1:1</span>
+              <img alt="" aria-hidden="true" className={aiToolsStyles.chipCaret} src={HERO_ASSETS.chipChevron} />
+            </button>
+
+            <button className={aiToolsStyles.promptChip} type="button">
+              <img
+                alt=""
+                aria-hidden="true"
+                className={aiToolsStyles.promptChipIcon}
+                src={HERO_ASSETS.variationsIcon}
+              />
+              <span>6 variations</span>
+              <img alt="" aria-hidden="true" className={aiToolsStyles.chipCaret} src={HERO_ASSETS.chipChevron} />
+            </button>
+          </div>
+
+          <div className={aiToolsStyles.promptRight}>
+            <button aria-label="Enhance prompt" className={aiToolsStyles.wandButton} type="button">
+              <img alt="" aria-hidden="true" height={16} src={HERO_ASSETS.wandIcon} width={16} />
+            </button>
+
+            <a className={aiToolsStyles.generateButton} href={CTA_URL}>
+              <span>Generate</span>
+              <img
+                alt=""
+                aria-hidden="true"
+                className={aiToolsStyles.generateButtonIcon}
+                height={16}
+                src={HERO_ASSETS.generateArrow}
+                width={16}
+              />
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -584,6 +656,70 @@ function AssetCard({ item }: { item: (typeof ASSET_CATEGORIES)[number] }) {
 }
 
 export function LandingPageStructureV2Alt() {
+  const [autoPromptValue, setAutoPromptValue] = useState("");
+  const [promptAnimationPhase, setPromptAnimationPhase] = useState<"typing" | "holding" | "clearing">("typing");
+  const [promptIndex, setPromptIndex] = useState(0);
+  const [hasPromptOverride, setHasPromptOverride] = useState(false);
+  const [isPromptFocused, setIsPromptFocused] = useState(false);
+  const [promptInputValue, setPromptInputValue] = useState("");
+  const promptInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (hasPromptOverride) {
+      return;
+    }
+
+    const currentPrompt = HERO_ROTATING_PROMPTS[promptIndex];
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    if (promptAnimationPhase === "typing") {
+      if (autoPromptValue.length < currentPrompt.length) {
+        timeoutId = setTimeout(() => {
+          setAutoPromptValue(currentPrompt.slice(0, autoPromptValue.length + 1));
+        }, 32);
+      } else {
+        timeoutId = setTimeout(() => {
+          setPromptAnimationPhase("holding");
+        }, 1600);
+      }
+    } else if (promptAnimationPhase === "holding") {
+      timeoutId = setTimeout(() => {
+        setPromptAnimationPhase("clearing");
+      }, 1100);
+    } else if (autoPromptValue.length > 0) {
+      timeoutId = setTimeout(() => {
+        setAutoPromptValue(currentPrompt.slice(0, autoPromptValue.length - 1));
+      }, 16);
+    } else {
+      timeoutId = setTimeout(() => {
+        setPromptIndex((current) => (current + 1) % HERO_ROTATING_PROMPTS.length);
+        setPromptAnimationPhase("typing");
+      }, 240);
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [autoPromptValue, hasPromptOverride, promptAnimationPhase, promptIndex]);
+
+  const handlePromptFocus = () => {
+    setIsPromptFocused(true);
+
+    requestAnimationFrame(() => {
+      promptInputRef.current?.focus();
+      promptInputRef.current?.setSelectionRange(0, 0);
+    });
+  };
+
+  const handlePromptBlur = () => {
+    setIsPromptFocused(false);
+
+    if (promptInputValue.trim() !== "") {
+      return;
+    }
+
+    setHasPromptOverride(false);
+    setPromptInputValue("");
+  };
+
   return (
     <div className={styles.page}>
       <div className={styles.shell}>
@@ -643,7 +779,22 @@ export function LandingPageStructureV2Alt() {
               <p>{ALT_PAGE_COPY.heroSubtitle}</p>
             </div>
 
-            <AltPromptComposer />
+            <AltPromptComposer
+              autoPromptValue={autoPromptValue}
+              hasPromptOverride={hasPromptOverride}
+              isPromptFocused={isPromptFocused}
+              onPromptBlur={handlePromptBlur}
+              onPromptChange={(value) => {
+                if (!hasPromptOverride) {
+                  setHasPromptOverride(true);
+                }
+
+                setPromptInputValue(value);
+              }}
+              onPromptFocus={handlePromptFocus}
+              promptInputRef={promptInputRef}
+              promptInputValue={promptInputValue}
+            />
 
             <div className={styles.altHeroModels}>
               <p className={styles.altHeroModelsTitle}>{ALT_PAGE_COPY.modelsLabel}</p>

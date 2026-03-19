@@ -343,6 +343,12 @@
   width: 788px;
 }
 
+.altHeroPromptMount {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
 .altHeroComposer {
   background: linear-gradient(180deg, #767676 0%, #686868 100%);
   border: 1px solid rgba(255, 255, 255, 0.16);
