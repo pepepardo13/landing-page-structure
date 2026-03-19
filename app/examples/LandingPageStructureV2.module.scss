@@ -149,6 +149,22 @@
   text-align: center;
 }
 
+.altHeroSection {
+  overflow: hidden;
+  padding: 24px 0 96px;
+  position: relative;
+  text-align: center;
+}
+
+.altHeroModeToggle {
+  align-items: center;
+  backdrop-filter: blur(5px);
+  border-radius: 28px;
+  display: inline-flex;
+  gap: 8px;
+  padding: 8px;
+}
+
 .modeToggle {
   align-items: center;
   backdrop-filter: blur(5px);
@@ -258,6 +274,11 @@
   width: 690px;
 }
 
+.altHeroIntro {
+  margin: 64px auto 0;
+  width: 690px;
+}
+
 .brandGlyph {
   height: 52px;
   margin: 0 auto 16px;
@@ -278,6 +299,7 @@
 }
 
 .heroIntro h1,
+.altHeroIntro h1,
 .sectionHeading h2,
 .assetsHeader h2,
 .faqSection h2 {
@@ -293,7 +315,13 @@
   font-size: 72px;
 }
 
+.altHeroIntro h1 {
+  font-family: "PolySans Bulky", "PolySans", sans-serif;
+  font-size: 72px;
+}
+
 .heroIntro p,
+.altHeroIntro p,
 .sectionHeading p,
 .assetsHeader p {
   font-family: "PolySans", sans-serif;
@@ -307,6 +335,242 @@
   color: #666666;
   font-size: 18px;
   width: 632px;
+}
+
+.altHeroIntro p {
+  color: #7b7b7b;
+  font-size: 18px;
+  width: 788px;
+}
+
+.altHeroComposer {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  margin: 32px auto 0;
+  padding: 8px;
+  width: 982px;
+}
+
+.altHeroComposerInput {
+  align-items: flex-start;
+  display: flex;
+  min-height: 52px;
+  padding: 8px 16px 20px;
+}
+
+.altHeroComposerCaret {
+  color: #191919;
+  font-family: "PolySans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.altHeroComposerControls {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.altHeroComposerLeft,
+.altHeroComposerRight {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.altHeroIconButton,
+.altHeroMagicButton,
+.altHeroStyleChip,
+.altHeroPromptChip,
+.altHeroGenerateButton {
+  appearance: none;
+  border: 0;
+  text-decoration: none;
+}
+
+.altHeroIconButton {
+  background: #383838;
+  border-radius: 12px;
+  cursor: pointer;
+  height: 40px;
+  padding: 0;
+  position: relative;
+  width: 40px;
+}
+
+.altHeroAddImageIcon {
+  display: block;
+  height: 18px;
+  left: 11px;
+  position: absolute;
+  top: 11px;
+  width: 18px;
+}
+
+.altHeroAddImagePlus {
+  display: block;
+  height: 6px;
+  left: 7px;
+  position: absolute;
+  top: 7px;
+  width: 6px;
+}
+
+.altHeroStyleChip {
+  align-items: center;
+  background: #383838;
+  border-radius: 12px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 10px;
+  height: 40px;
+  padding: 4px 8px 4px 4px;
+}
+
+.altHeroStyleThumb {
+  border-radius: 8px;
+  display: block;
+  height: 32px;
+  overflow: hidden;
+  position: relative;
+  width: 32px;
+}
+
+.altHeroStyleThumbLayer {
+  display: block;
+  height: 100%;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.altHeroStyleThumbIcon {
+  display: block;
+  height: 18px;
+  left: 7px;
+  position: absolute;
+  top: 7px;
+  width: 18px;
+}
+
+.altHeroStyleChipLabel,
+.altHeroPromptChip span,
+.altHeroGenerateButton span {
+  font-family: "PolySans", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.altHeroStyleChipLabel {
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.altHeroPromptChip {
+  align-items: center;
+  background: #383838;
+  border-radius: 48px;
+  color: #b7b7b7;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 4px;
+  height: 40px;
+  padding: 0 12px;
+}
+
+.altHeroPromptChip span {
+  font-weight: 400;
+}
+
+.altHeroPromptChipIcon,
+.altHeroPromptChevron,
+.altHeroMagicIcon,
+.altHeroGenerateIcon {
+  display: block;
+  height: 16px;
+  width: 16px;
+}
+
+.altHeroMagicButton {
+  background: transparent;
+  border-radius: 100px;
+  cursor: pointer;
+  display: inline-flex;
+  height: 40px;
+  padding: 12px;
+  width: 40px;
+}
+
+.altHeroGenerateButton {
+  align-items: center;
+  background: #87e64b;
+  border-radius: 48px;
+  color: #191919;
+  display: inline-flex;
+  gap: 4px;
+  height: 40px;
+  justify-content: center;
+  padding: 0 24px;
+}
+
+.altHeroGenerateButton span {
+  font-weight: 600;
+  letter-spacing: 0.28px;
+}
+
+.altHeroModels {
+  margin-top: 18px;
+}
+
+.altHeroModels p {
+  color: #7b7b7b;
+  font-family: "PolySans", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.altHeroModelRow {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.altHeroModelImage,
+.altHeroModelDivider,
+.altHeroModelInlineIcon {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.altHeroModelText,
+.altHeroModelWithIcon {
+  align-items: center;
+  color: #8c8c8c;
+  display: inline-flex;
+  font-family: "PolySans", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.altHeroModelWithIcon {
+  gap: 3px;
+}
+
+.altHeroPreviewScene {
+  height: 538px;
+  margin: 82px auto 0;
+  overflow: visible;
+  position: relative;
+  width: 1498.112px;
 }
 
 .heroPreviewScene {
