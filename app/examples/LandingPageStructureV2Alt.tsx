@@ -207,7 +207,14 @@ function AltModelLogo({
   if (item.kind === "text-with-icon") {
     return (
       <span className={aiToolsStyles.modelLogoTextWithIcon}>
-        <img alt="" aria-hidden="true" className={aiToolsStyles.modelLogoInlineIcon} src={item.src} />
+        <img
+          alt=""
+          aria-hidden="true"
+          className={aiToolsStyles.modelLogoInlineIcon}
+          height={item.height}
+          src={item.src}
+          width={item.width}
+        />
         <span>{item.label}</span>
       </span>
     );
@@ -265,13 +272,11 @@ function AltHeroPreviewCard({ card }: { card: (typeof ALT_HERO_PREVIEW_CARDS)[nu
 
 function AltPromptComposer() {
   return (
-    <div className={styles.altHeroComposer}>
-      <div className={styles.altHeroComposerInput}>
-        <span aria-hidden="true" className={styles.altHeroComposerCaret}>
-          |
-        </span>
+    <div className={aiToolsStyles.promptShell}>
+      <div className={aiToolsStyles.promptInputRow}>
+        <span aria-hidden="true" className={aiToolsStyles.promptCursor} />
       </div>
-      <div className={clsx(styles.altHeroComposerControls, aiToolsStyles.promptActionRow)}>
+      <div className={aiToolsStyles.promptActionRow}>
         <div className={aiToolsStyles.promptLeft}>
           <button aria-label="Upload an image" className={aiToolsStyles.iconChip} type="button">
             <span className={aiToolsStyles.addImageIcon}>
@@ -495,11 +500,13 @@ export function LandingPageStructureV2Alt() {
               <p>{ALT_PAGE_COPY.heroSubtitle}</p>
             </div>
 
-            <AltPromptComposer />
+            <div className={styles.altHeroPromptShell}>
+              <AltPromptComposer />
+            </div>
 
             <div className={styles.altHeroModels}>
               <p className={aiToolsStyles.modelsTitle}>{ALT_PAGE_COPY.modelsLabel}</p>
-              <div className={aiToolsStyles.modelsRow}>
+              <div className={clsx(styles.altHeroModelRow, aiToolsStyles.modelsRow)}>
                 {MODEL_LOGOS.map((item) => (
                   <AltModelLogo key={`${item.kind}-${item.label}`} item={item} />
                 ))}
