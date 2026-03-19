@@ -661,6 +661,7 @@
   gap: 24px;
   justify-content: center;
   margin-top: 16px;
+  min-height: 24px;
 }
 
 .altHeroModelImage,
@@ -670,6 +671,10 @@
   flex: 0 0 auto;
 }
 
+.altHeroModelImage {
+  object-fit: contain;
+}
+
 .altHeroModelText,
 .altHeroModelWithIcon {
   align-items: center;
@@ -677,12 +682,17 @@
   display: inline-flex;
   font-family: "PolySans", sans-serif;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .altHeroModelWithIcon {
-  gap: 3px;
+  gap: 6px;
+}
+
+.altHeroModelInlineIcon {
+  object-fit: contain;
 }
 
 .altHeroPreviewScene {
