@@ -3,7 +3,6 @@ import type { CSSProperties } from "react";
 import clsx from "clsx";
 
 import styles from "./LandingPageStructureV2.module.scss";
-import { HERO_ASSETS } from "./AIToolsLandingPage.data";
 import {
   ASSET_CATEGORIES,
   CTA_URL,
@@ -36,10 +35,27 @@ function altHeroAsset(name: string) {
   return altAssetUrls[`./assets/landing-page-structure-v2/${name}`];
 }
 
+function publicAsset(name: string) {
+  return `${import.meta.env.BASE_URL}v2-alt-prompt/${name}`;
+}
+
 const ALT_PAGE_COPY = {
   heroTitle: "VideoGen",
   heroSubtitle: "From idea to video in seconds. Write a prompt, upload an image from your gallery or create.",
   modelsLabel: "We use the best models and match them to your prompt",
+};
+
+const ALT_PROMPT_PUBLIC_ASSETS = {
+  addImagePrimary: publicAsset("add-image-primary.svg"),
+  addImageSecondary: publicAsset("add-image-secondary.svg"),
+  styleThumbnail: publicAsset("style-thumbnail.png"),
+  styleIcon: publicAsset("style-icon.svg"),
+  styleChevron: publicAsset("style-chevron.svg"),
+  aspectIcon: publicAsset("aspect-icon.svg"),
+  chipChevron: publicAsset("chip-chevron.svg"),
+  variationsIcon: publicAsset("variations-icon.svg"),
+  wandIcon: publicAsset("wand-icon.svg"),
+  generateArrow: publicAsset("generate-arrow.svg"),
 };
 
 const ALT_MODEL_LOGOS = [
@@ -301,13 +317,13 @@ function AltPromptComposer() {
                 alt=""
                 aria-hidden="true"
                 className={styles.altHeroAddImagePrimary}
-                src={HERO_ASSETS.addImagePrimary}
+                        src={ALT_PROMPT_PUBLIC_ASSETS.addImagePrimary}
               />
               <img
                 alt=""
                 aria-hidden="true"
                 className={styles.altHeroAddImageSecondary}
-                src={HERO_ASSETS.addImageSecondary}
+                        src={ALT_PROMPT_PUBLIC_ASSETS.addImageSecondary}
               />
             </span>
           </button>
@@ -318,20 +334,40 @@ function AltPromptComposer() {
                 alt=""
                 aria-hidden="true"
                 className={styles.altHeroStyleThumbLayer}
-                src={HERO_ASSETS.styleThumbnail}
+                        src={ALT_PROMPT_PUBLIC_ASSETS.styleThumbnail}
               />
               <span className={styles.altHeroStyleThumbIcon}>
-                <img alt="" aria-hidden="true" className={styles.mediaFill} src={HERO_ASSETS.styleIcon} />
+                        <img
+                          alt=""
+                          aria-hidden="true"
+                          className={styles.mediaFill}
+                          src={ALT_PROMPT_PUBLIC_ASSETS.styleIcon}
+                        />
               </span>
             </span>
             <span className={styles.altHeroStyleChipLabel}>Auto style</span>
-            <img alt="" aria-hidden="true" className={styles.altHeroPromptChevron} src={HERO_ASSETS.styleChevron} />
+                    <img
+                      alt=""
+                      aria-hidden="true"
+                      className={styles.altHeroPromptChevron}
+                      src={ALT_PROMPT_PUBLIC_ASSETS.styleChevron}
+                    />
           </button>
 
           <button className={styles.altHeroPromptChip} type="button">
-            <img alt="" aria-hidden="true" className={styles.altHeroPromptChipIcon} src={HERO_ASSETS.aspectIcon} />
+                    <img
+                      alt=""
+                      aria-hidden="true"
+                      className={styles.altHeroPromptChipIcon}
+                      src={ALT_PROMPT_PUBLIC_ASSETS.aspectIcon}
+                    />
             <span>1:1</span>
-            <img alt="" aria-hidden="true" className={styles.altHeroPromptChevron} src={HERO_ASSETS.chipChevron} />
+                    <img
+                      alt=""
+                      aria-hidden="true"
+                      className={styles.altHeroPromptChevron}
+                      src={ALT_PROMPT_PUBLIC_ASSETS.chipChevron}
+                    />
           </button>
 
           <button className={styles.altHeroPromptChip} type="button">
@@ -339,20 +375,35 @@ function AltPromptComposer() {
               alt=""
               aria-hidden="true"
               className={styles.altHeroPromptChipIcon}
-              src={HERO_ASSETS.variationsIcon}
+                      src={ALT_PROMPT_PUBLIC_ASSETS.variationsIcon}
             />
             <span>6 variations</span>
-            <img alt="" aria-hidden="true" className={styles.altHeroPromptChevron} src={HERO_ASSETS.chipChevron} />
+                    <img
+                      alt=""
+                      aria-hidden="true"
+                      className={styles.altHeroPromptChevron}
+                      src={ALT_PROMPT_PUBLIC_ASSETS.chipChevron}
+                    />
           </button>
         </div>
 
         <div className={styles.altHeroComposerRight}>
           <button aria-label="Magic wand" className={styles.altHeroMagicButton} type="button">
-            <img alt="" aria-hidden="true" className={styles.altHeroMagicIcon} src={HERO_ASSETS.wandIcon} />
+                    <img
+                      alt=""
+                      aria-hidden="true"
+                      className={styles.altHeroMagicIcon}
+                      src={ALT_PROMPT_PUBLIC_ASSETS.wandIcon}
+                    />
           </button>
           <a className={styles.altHeroGenerateButton} href={CTA_URL}>
             <span>Generate</span>
-            <img alt="" aria-hidden="true" className={styles.altHeroGenerateIcon} src={HERO_ASSETS.generateArrow} />
+                    <img
+                      alt=""
+                      aria-hidden="true"
+                      className={styles.altHeroGenerateIcon}
+                      src={ALT_PROMPT_PUBLIC_ASSETS.generateArrow}
+                    />
           </a>
         </div>
       </div>
