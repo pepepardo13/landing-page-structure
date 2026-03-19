@@ -3,7 +3,6 @@ import type { CSSProperties } from "react";
 import clsx from "clsx";
 
 import { HERO_ASSETS, MODEL_LOGOS } from "./AIToolsLandingPage.data";
-import aiToolsStyles from "./AIToolsLandingPage.module.scss";
 import styles from "./LandingPageStructureV2.module.scss";
 import {
   ASSET_CATEGORIES,
@@ -49,6 +48,77 @@ const ALT_MODE_TOGGLE_ITEMS = [
   { id: "videogen", label: "VideoGen", icon: "video" as const, active: true },
   { id: "musicgen", label: "MusicGen", icon: "music" as const },
   { id: "graphicgen", label: "GraphicGen", icon: "graphic" as const },
+];
+
+const MODEL_LOGO_BY_LABEL = Object.fromEntries(MODEL_LOGOS.map((item) => [item.label, item])) as Record<
+  string,
+  (typeof MODEL_LOGOS)[number]
+>;
+
+const ALT_MODEL_ROW_ITEMS = [
+  {
+    kind: "image" as const,
+    label: "OpenAI",
+    item: MODEL_LOGO_BY_LABEL.OpenAI,
+    frameWidth: 91.5,
+    paddingX: 3,
+  },
+  {
+    kind: "image" as const,
+    label: "Luma AI",
+    item: MODEL_LOGO_BY_LABEL["Luma AI"],
+    frameWidth: 114.75,
+    paddingX: 9,
+  },
+  {
+    kind: "text" as const,
+    label: "Veo",
+    frameWidth: 63.75,
+  },
+  {
+    kind: "text" as const,
+    label: "Nano Banana",
+    frameWidth: 142.5,
+  },
+  {
+    kind: "divider" as const,
+    src: altHeroAsset("imgVector.svg"),
+  },
+  {
+    kind: "seedream" as const,
+    label: "Seedream",
+    item: MODEL_LOGO_BY_LABEL.Seedream,
+    frameWidth: 95.25,
+  },
+  {
+    kind: "divider" as const,
+    src: altHeroAsset("imgVector.svg"),
+  },
+  {
+    kind: "image" as const,
+    label: "Kling AI",
+    item: MODEL_LOGO_BY_LABEL["Kling AI"],
+    frameWidth: 95.25,
+    paddingX: 0,
+  },
+  {
+    kind: "elevenlabs" as const,
+    label: "ElevenLabs",
+    item: MODEL_LOGO_BY_LABEL.ElevenLabs,
+    frameWidth: 121.5,
+  },
+  {
+    kind: "flux" as const,
+    label: "Flux",
+    item: MODEL_LOGO_BY_LABEL.Flux,
+    frameWidth: 75,
+  },
+  {
+    kind: "minimax" as const,
+    label: "Minimax",
+    item: MODEL_LOGO_BY_LABEL.Minimax,
+    frameWidth: 107.25,
+  },
 ];
 
 const ALT_HERO_PREVIEW_CARDS = [
@@ -189,38 +259,111 @@ function BrandGlyph() {
 function AltModelLogo({
   item,
 }: {
-  item: (typeof MODEL_LOGOS)[number];
+  item: (typeof ALT_MODEL_ROW_ITEMS)[number];
 }) {
-  if (item.kind === "image") {
-    return (
-      <img
-        alt={item.label}
-        className={aiToolsStyles.modelLogoImage}
-        height={item.height}
-        src={item.src}
-        style={{ width: `${item.width}px`, height: `${item.height}px` }}
-        width={item.width}
-      />
-    );
+  if (item.kind === "divider") {
+    return <img alt="" aria-hidden="true" className={styles.altHeroModelDivider} src={item.src} />;
   }
 
-  if (item.kind === "text-with-icon") {
+  if (item.kind === "image") {
+    const image = item.item as Extract<(typeof MODEL_LOGOS)[number], { kind: "image" }>;
+
     return (
-      <span className={aiToolsStyles.modelLogoTextWithIcon}>
+      <span
+        className={styles.altHeroModelFrame}
+        style={{
+          width: `${item.frameWidth}px`,
+          paddingLeft: `${item.paddingX}px`,
+          paddingRight: `${item.paddingX}px`,
+        }}
+      >
         <img
-          alt=""
-          aria-hidden="true"
-          className={aiToolsStyles.modelLogoInlineIcon}
-          height={item.height}
-          src={item.src}
-          width={item.width}
+          alt={item.label}
+          className={styles.altHeroModelImage}
+          height={image.height}
+          src={image.src}
+          style={{ width: `${image.width}px`, height: `${image.height}px` }}
+          width={image.width}
         />
-        <span>{item.label}</span>
       </span>
     );
   }
 
-  return <span className={aiToolsStyles.modelLogoText}>{item.label}</span>;
+  if (item.kind === "text") {
+    return (
+      <span className={styles.altHeroModelTextOnly} style={{ width: `${item.frameWidth}px` }}>
+        {item.label}
+      </span>
+    );
+  }
+
+  if (item.kind === "seedream") {
+    const logo = item.item as Extract<(typeof MODEL_LOGOS)[number], { kind: "text-with-icon" }>;
+
+    return (
+      <span className={styles.altHeroModelSeedreamFrame} style={{ width: `${item.frameWidth}px` }}>
+        <img
+          alt=""
+          aria-hidden="true"
+          className={styles.altHeroModelSeedreamIcon}
+          height={logo.height}
+          src={logo.src}
+          width={logo.width}
+        />
+        <span className={styles.altHeroModelSeedreamText}>{item.label}</span>
+      </span>
+    );
+  }
+
+  if (item.kind === "elevenlabs") {
+    const logo = item.item as Extract<(typeof MODEL_LOGOS)[number], { kind: "image" }>;
+
+    return (
+      <span className={styles.altHeroModelElevenLabsFrame} style={{ width: `${item.frameWidth}px` }}>
+        <img
+          alt={item.label}
+          className={styles.altHeroModelElevenLabsImage}
+          height={logo.height}
+          src={logo.src}
+          width={logo.width}
+        />
+      </span>
+    );
+  }
+
+  if (item.kind === "flux") {
+    const logo = item.item as Extract<(typeof MODEL_LOGOS)[number], { kind: "text-with-icon" }>;
+
+    return (
+      <span className={styles.altHeroModelFluxFrame} style={{ width: `${item.frameWidth}px` }}>
+        <img
+          alt=""
+          aria-hidden="true"
+          className={styles.altHeroModelFluxIcon}
+          height={logo.height}
+          src={logo.src}
+          width={logo.width}
+        />
+        <span className={styles.altHeroModelFluxText}>{item.label}</span>
+      </span>
+    );
+  }
+
+  const logo = item.item as Extract<(typeof MODEL_LOGOS)[number], { kind: "text-with-icon" }>;
+
+  return (
+    <span className={styles.altHeroModelMinimaxFrame} style={{ width: `${item.frameWidth}px` }}>
+      <img
+        alt=""
+        aria-hidden="true"
+        className={styles.altHeroModelMinimaxIcon}
+        height={logo.height}
+        src={logo.src}
+        width={logo.width}
+      />
+      <span className={styles.altHeroModelMinimaxText}>{item.label}</span>
+    </span>
+  );
 }
 
 function AltHeroPreviewCard({ card }: { card: (typeof ALT_HERO_PREVIEW_CARDS)[number] }) {
@@ -272,48 +415,48 @@ function AltHeroPreviewCard({ card }: { card: (typeof ALT_HERO_PREVIEW_CARDS)[nu
 
 function AltPromptComposer() {
   return (
-    <div className={aiToolsStyles.promptShell}>
-      <div className={aiToolsStyles.promptInputRow}>
-        <span aria-hidden="true" className={aiToolsStyles.promptCursor} />
+    <div className={styles.altHeroComposer}>
+      <div className={styles.altHeroComposerInput}>
+        <span aria-hidden="true" className={styles.altHeroComposerCaret} />
       </div>
-      <div className={aiToolsStyles.promptActionRow}>
-        <div className={aiToolsStyles.promptLeft}>
-          <button aria-label="Upload an image" className={aiToolsStyles.iconChip} type="button">
-            <span className={aiToolsStyles.addImageIcon}>
-              <img alt="" aria-hidden="true" className={aiToolsStyles.addImageIconPrimary} src={HERO_ASSETS.addImagePrimary} />
-              <img alt="" aria-hidden="true" className={aiToolsStyles.addImageIconSecondary} src={HERO_ASSETS.addImageSecondary} />
+      <div className={styles.altHeroComposerControls}>
+        <div className={styles.altHeroComposerLeft}>
+          <button aria-label="Upload an image" className={styles.altHeroUploadButton} type="button">
+            <span className={styles.altHeroAddImageIcon}>
+              <img alt="" aria-hidden="true" className={styles.altHeroAddImagePrimary} src={HERO_ASSETS.addImagePrimary} />
+              <img alt="" aria-hidden="true" className={styles.altHeroAddImageSecondary} src={HERO_ASSETS.addImageSecondary} />
             </span>
           </button>
 
-          <button className={aiToolsStyles.styleChip} type="button">
-            <span className={aiToolsStyles.styleChipThumb}>
-              <img alt="" aria-hidden="true" className={aiToolsStyles.styleChipThumbImage} src={HERO_ASSETS.styleThumbnail} />
-              <img alt="" aria-hidden="true" className={aiToolsStyles.styleChipThumbIcon} src={HERO_ASSETS.styleIcon} />
+          <button className={styles.altHeroStyleChip} type="button">
+            <span className={styles.altHeroStyleThumb}>
+              <img alt="" aria-hidden="true" className={styles.altHeroStyleThumbLayer} src={HERO_ASSETS.styleThumbnail} />
+              <img alt="" aria-hidden="true" className={styles.altHeroStyleThumbIcon} src={HERO_ASSETS.styleIcon} />
             </span>
-            <span className={aiToolsStyles.styleChipLabel}>Auto style</span>
-            <img alt="" aria-hidden="true" className={aiToolsStyles.chipCaret} src={HERO_ASSETS.styleChevron} />
+            <span className={styles.altHeroStyleChipLabel}>Auto style</span>
+            <img alt="" aria-hidden="true" className={styles.altHeroPromptChevron} src={HERO_ASSETS.styleChevron} />
           </button>
 
-          <button className={aiToolsStyles.promptChip} type="button">
-            <img alt="" aria-hidden="true" className={aiToolsStyles.promptChipIcon} src={HERO_ASSETS.aspectIcon} />
-            <span>1:1</span>
-            <img alt="" aria-hidden="true" className={aiToolsStyles.chipCaret} src={HERO_ASSETS.chipChevron} />
+          <button className={clsx(styles.altHeroPromptChip, styles.altHeroPromptChipAspect)} type="button">
+            <img alt="" aria-hidden="true" className={styles.altHeroPromptChipIcon} src={HERO_ASSETS.aspectIcon} />
+            <span className={styles.altHeroPromptChipLabel}>1:1</span>
+            <img alt="" aria-hidden="true" className={styles.altHeroPromptChevron} src={HERO_ASSETS.chipChevron} />
           </button>
 
-          <button className={aiToolsStyles.promptChip} type="button">
-            <img alt="" aria-hidden="true" className={aiToolsStyles.promptChipIcon} src={HERO_ASSETS.variationsIcon} />
-            <span>6 variations</span>
-            <img alt="" aria-hidden="true" className={aiToolsStyles.chipCaret} src={HERO_ASSETS.chipChevron} />
+          <button className={clsx(styles.altHeroPromptChip, styles.altHeroPromptChipVariations)} type="button">
+            <img alt="" aria-hidden="true" className={styles.altHeroPromptChipIcon} src={HERO_ASSETS.variationsIcon} />
+            <span className={styles.altHeroPromptChipLabel}>6 variations</span>
+            <img alt="" aria-hidden="true" className={styles.altHeroPromptChevron} src={HERO_ASSETS.chipChevron} />
           </button>
         </div>
 
-        <div className={aiToolsStyles.promptRight}>
-          <button aria-label="Enhance prompt" className={aiToolsStyles.wandButton} type="button">
-            <img alt="" aria-hidden="true" height={16} src={HERO_ASSETS.wandIcon} width={16} />
+        <div className={styles.altHeroComposerRight}>
+          <button aria-label="Enhance prompt" className={styles.altHeroMagicButton} type="button">
+            <img alt="" aria-hidden="true" className={styles.altHeroMagicIcon} height={16} src={HERO_ASSETS.wandIcon} width={16} />
           </button>
-          <a className={aiToolsStyles.generateButton} href={CTA_URL}>
+          <a className={styles.altHeroGenerateButton} href={CTA_URL}>
             <span>Generate</span>
-            <img alt="" aria-hidden="true" className={aiToolsStyles.generateButtonIcon} src={HERO_ASSETS.generateArrow} />
+            <img alt="" aria-hidden="true" className={styles.altHeroGenerateIcon} src={HERO_ASSETS.generateArrow} />
           </a>
         </div>
       </div>
@@ -500,15 +643,16 @@ export function LandingPageStructureV2Alt() {
               <p>{ALT_PAGE_COPY.heroSubtitle}</p>
             </div>
 
-            <div className={styles.altHeroPromptShell}>
-              <AltPromptComposer />
-            </div>
+            <AltPromptComposer />
 
             <div className={styles.altHeroModels}>
-              <p className={aiToolsStyles.modelsTitle}>{ALT_PAGE_COPY.modelsLabel}</p>
-              <div className={clsx(styles.altHeroModelRow, aiToolsStyles.modelsRow)}>
-                {MODEL_LOGOS.map((item) => (
-                  <AltModelLogo key={`${item.kind}-${item.label}`} item={item} />
+              <p className={styles.altHeroModelsTitle}>{ALT_PAGE_COPY.modelsLabel}</p>
+              <div className={styles.altHeroModelRow}>
+                {ALT_MODEL_ROW_ITEMS.map((item, index) => (
+                  <AltModelLogo
+                    key={`${item.kind}-${"label" in item ? item.label : `divider-${index + 1}`}`}
+                    item={item}
+                  />
                 ))}
               </div>
             </div>
