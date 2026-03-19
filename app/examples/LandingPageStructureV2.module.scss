@@ -406,7 +406,6 @@
 .altHeroPromptChip,
 .altHeroGenerateButton {
   appearance: none;
-  box-sizing: border-box;
   border: 0;
   text-decoration: none;
 }
@@ -467,8 +466,8 @@
   display: inline-flex;
   gap: 10px;
   height: 40px;
-  min-width: 145px;
-  padding: 4px 8px;
+  padding: 4px 8px 4px 4px;
+  width: 141px;
 }
 
 .altHeroStyleThumb {
@@ -590,9 +589,6 @@
 }
 
 .altHeroModels {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
   margin-top: 18px;
 }
 
@@ -604,6 +600,7 @@
   line-height: 1.5;
   margin: 0;
   text-align: center;
+  width: 1360px;
 }
 
 .altHeroModelRow {
@@ -613,9 +610,7 @@
   justify-content: center;
   margin-top: 16px;
   min-height: 24px;
-  max-width: 100%;
-  padding: 0 8px;
-  width: max-content;
+  width: 1360px;
 }
 
 .altHeroModelFrame,
